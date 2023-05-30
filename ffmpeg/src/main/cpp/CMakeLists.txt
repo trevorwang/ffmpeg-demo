@@ -9,6 +9,28 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project("nativelib")
 
+set(FFMPEG_DIR ${CMAKE_SOURCE_DIR}/../../../../ffmpeg-android-maker/output)
+set(FFMPEG_INCLUDE_DIR ${FFMPEG_DIR}/include/${ANDROID_ABI})
+set(FFMPEG_LIBS_DIR ${FFMPEG_DIR}/lib/${ANDROID_ABI})
+
+include_directories(${FFMPEG_INCLUDE_DIR})
+
+set(FFMPEG_LIB_NAMES
+        avformat
+        avcodec
+        avutil
+        swresample
+        swscale
+        avfilter
+        avdevice
+        )
+        
+foreach(FFMPEG_LIB_NAME ${FFMPEG_LIB_NAMES})
+        add_library(${FFMPEG_LIB_NAME} SHARED IMPORTED)
+        set_target_properties(${FFMPEG_LIB_NAME} PROPERTIES IMPORTED_LOCATION ${FFMPEG_LIBS_DIR}/lib${FFMPEG_LIB_NAME}.so)
+endforeach()
+
+
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
@@ -43,6 +65,7 @@ find_library( # Sets the name of the path variable.
 target_link_libraries( # Specifies the target library.
         nativelib
 
+        ${FFMPEG_LIB_NAMES}
         # Links the target library to the log library
         # included in the NDK.
         ${log-lib})

@@ -26,7 +26,7 @@ class FirstFragment : Fragment() {
     ): View {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
-        binding.textviewFirst.text = NativeLib().stringFromJNI()
+        binding.textviewFirst.text = NativeLib().mediaInfo()
         return binding.root
 
     }

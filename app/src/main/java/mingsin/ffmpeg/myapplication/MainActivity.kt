@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import mingsin.ffmpeg.myapplication.databinding.ActivityMainBinding
+import mingsin.ffmpeg.nativelib.NativeLib
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,10 +31,9 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAnchorView(R.id.fab)
-                .setAction("Action", null).show()
+        binding.fab.setOnClickListener {
+            val demo = NativeLib().getDemo();
+            print(demo.name)
         }
     }
 

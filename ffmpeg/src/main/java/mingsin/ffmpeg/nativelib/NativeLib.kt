@@ -10,7 +10,9 @@ class NativeLib {
 
     external fun add(x: Int, y: Int): Int
 
-    external fun mediaInfo():String
+    external fun mediaInfo(): String
+
+    external fun getDemo(): JniDemo
 
     companion object {
         // Used to load the 'nativelib' library on application startup.
